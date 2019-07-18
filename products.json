@@ -1,0 +1,64 @@
+{
+    "products": [
+        {
+            "name": "CocaCola",
+            "id" : 1,
+            "price": 3.50,
+            "image" : "./images/products/cocacola.jpg"
+        },
+        {
+            "name": "sprite",
+            "id" : 2,
+            "price": 3.25,
+            "image" : "./images/products/sprite.jpg"
+        },
+        {
+            "name": "Latte",
+            "id" : 3,
+            "price": 4.25,
+            "image" : "./images/products/latte.jpg"
+        },
+        {
+            "name": "beer",
+            "id" : 4,
+            "price": 3.50,
+            "image" : "./images/products/beer.jpg"
+        },
+        {
+            "name": "pepsi",
+            "id" : 5,
+            "price": 3.25,
+            "image" : "./images/products/pepsi.jpg"
+        },
+        {
+            "name": "evian 1.5L",
+            "id" : 6,
+            "price": 3.25,
+            "image" : "./images/products/evian.jpg"
+        },
+        {
+            "name": "Red Bull",
+            "id" : 7,
+            "price": 4.50,
+            "image" : "./images/products/redbull.jpg"
+        },
+        {
+            "name": "Wine",
+            "id" : 8,
+            "price": 15,
+            "image" : "./images/products/wine.jpg"
+        },
+        {
+            "name": "Cocktail",
+            "id" : 9,
+            "price": 12.50,
+            "image" : "./images/products/cocktail.jpg"
+        },
+        {
+            "name": "Orange juice",
+            "id" : 10,
+            "price": 5.50,
+            "image" : "./images/products/orange-juice.jpg"
+        }
+    ]
+}
