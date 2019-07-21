@@ -301,6 +301,7 @@ h3 {
 .remove-item {
     text-decoration: none;
     color: var(--secondary-color);
+    cursor: pointer;
 }
 
 .cart-item-counter {
