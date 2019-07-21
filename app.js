@@ -78,8 +78,18 @@ function removeCartItem(id) {
   setCartLocal(cart);
   // removing the DOM element of the item from the cart container
   cartContainer.removeChild(removedDOM);
+  // updating the cart item count
+  cartItemCount(cart);
   // reducing the price from the total price
   updateTotalPrice(price * -1);
+  // reset the add to cart product button
+  const addToCartReset = [...addToCartBtns].find(e => parseInt(e.getAttribute("data-id")) === id );
+  addToCartReset.innerHTML = '<i class="material-icons"> add_shopping_cart </i> Add to cart'
+  addToCartReset.removeAttribute("disabled");
+  // close cart if empty
+  if (cartItemCountDOM.innerHTML === "0") {
+    closeCart();
+  }
 }
 
 // Manage increasing / decreasing a cart item amount
