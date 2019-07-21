@@ -272,6 +272,7 @@ h3 {
     align-items: center;
     width: 100%;
     padding: 1em;
+    transition: var(--main-transition);
 }
 
 .thumbnail {
@@ -297,7 +298,7 @@ h3 {
     height: auto;
 }
 
-.remove {
+.remove-item {
     text-decoration: none;
     color: var(--secondary-color);
 }
