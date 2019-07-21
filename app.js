@@ -4,20 +4,30 @@ const cartCloseBtn = document.querySelector(".close-cart");
 const cartDOM = document.querySelector(".cart");
 const overlay = document.querySelector(".overlay");
 const cartContainer = document.querySelector(".cart-container");
+const cartItemCountDOM = document.querySelector(".items-count");
+const clearCartBtnDOM = document.querySelector(".clear-cart");
 
 let addToCartBtns = [];
 let products = [];
 let cart = [];
+
 // Cart opening and closing management
-cartBtn.addEventListener("click",() => {
+function openCart() {
   cartDOM.style.transform = "translateX(1%)";
   overlay.style.display = "block"
+}
+function closeCart() {
+  cartDOM.style.transform = "translateX(101%)";
+  overlay.style.display = "none";
+}
+cartBtn.addEventListener("click",() => {
+  openCart();
 })
 
 cartCloseBtn.addEventListener("click", () =>{
-  cartDOM.style.transform = "translateX(101%)";
-  overlay.style.display = "none";
+  closeCart();
 });
+
 
 // Getting data from JSON file 
 async function getProducts(url) {
@@ -30,6 +40,18 @@ async function getProducts(url) {
   }
 }
 
+//Local storage functions
+function setCartLocal(arr) {
+  localStorage.setItem("cart", JSON.stringify(arr));
+}
+function getCartLocal() {
+  return JSON.parse(localStorage.getItem("cart"));
+}
+
+//Manage cart items count
+function cartItemCount(arr) {
+  cartItemCountDOM.innerHTML = arr.length;
+}
 // Rendering products 
 function renderProducts(arr) {
   let result = "";
@@ -76,29 +98,59 @@ function renderCartItem(obj) {
     cartContainer.innerHTML += result;
 }
 
-// Manage add to cart Buttons
+// Managing clear cart button
+clearCartBtnDOM.addEventListener("click", () => {
+  // clearing the cart variable
+  cart = [];
+  // clearing the local storage cart value
+  setCartLocal(cart);
+  // clearing the cart DOM
+  cartContainer.innerHTML = "";
+  // updating the cart Item count to zero
+  cartItemCount(cart);
+  // reseting all add to cart buttons
+  addToCartBtns.forEach(btn => {
+    btn.innerHTML = '<i class="material-icons"> add_shopping_cart </i> Add to cart';
+    btn.removeAttribute("disabled");
+
+  })
+  // closing the cart
+  closeCart();
+})
+// Managing add to cart Buttons
 function addToCartBtnsManager(arr) {
   arr.forEach(btn => {
     const id = parseInt(btn.getAttribute("data-id"));
+    const currentProduct = products.find(e => e.id === id);
     // Disabling buttons for items already in cart
     if (cart.find(e => e.id === id)) {
       btn.innerHTML = "In Cart";
       btn.setAttribute("disabled", "true");
+      renderCartItem(currentProduct);
     }
     // Adding products to cart onclick and disabling button
     btn.addEventListener("click", () => {
       if (cart.find(e => e.id === id) === undefined) {
-        const currentProduct = products.find(e => e.id === id);
-        cart.push(currentProduct);
+        cart = [...cart, currentProduct];
         btn.innerHTML = "In Cart";
-        btn.setAttribute("disabled", "true");
-        renderCartItem(currentProduct)
+        btn.setAttribute("disabled", "disabled");
+        renderCartItem(currentProduct);
+        //update the local storage cart value
+        setCartLocal(cart);
+        // update the item count value
+        cartItemCount(cart);
+        //opening the cart
+        openCart();
       }
     });
 
   })
 }
 getProducts("products.json").then(data => {
+  // Setting up the cart from local storage
+  cart = getCartLocal() || [];
+  // Setting up the cart items count value
+  cartItemCount(cart);
   // Getting products from JSON file
   products = data.products;
   // Rendering the products to the DOM

@@ -325,7 +325,7 @@ h3 {
     margin: 1em auto;
 }
 
-.clear,
+.clear-cart,
 .checkout {
     display: block;
     text-decoration: none;
@@ -341,12 +341,12 @@ h3 {
     font-weight: bold;
 }
 
-.clear {
+.clear-cart {
     background-color: var(--secondary-color);
     box-shadow: 2px 3px 4px #b77d11
 }
 
-.clear:hover {
+.clear-cart:hover {
     background-color: #ffc967;
     
 }
